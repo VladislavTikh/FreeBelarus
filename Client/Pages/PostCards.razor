@@ -1,0 +1,41 @@
+﻿@page "/postcards"
+
+@inject HttpClient _client 
+
+<h3>PostCards</h3>
+
+@if(_postCards != null)
+{
+<div class="control-section">
+    <div class="row">
+        @foreach (var card in _postCards)
+        {
+            <div class="col-sm-auto mb-2">
+                <PostCard Card="card" />
+            </div>
+        }
+    </div>
+</div>
+}
+else
+{
+    <p>Loading...</p>
+}
+
+<style>
+.row {
+    width: 80%;
+    margin: auto;
+}
+</style>
+
+@code {
+
+    private IEnumerable<FreeBelarus.Shared.Models.PostCard> _postCards;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _postCards = await _client.GetFromJsonAsync<IEnumerable<FreeBelarus.Shared.Models.PostCard>>("api/postcards");
+    }
+
+}
