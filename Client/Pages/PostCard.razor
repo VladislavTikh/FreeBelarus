@@ -1,0 +1,90 @@
+﻿@page "/postcard"
+
+@inject IModalService Modal
+@inject IJSRuntime JSRuntime
+
+<MatCard @onclick="ShowFullScreenImage" class="demo-mat-card">
+    <MatCardContent>
+        <MatCardMedia Wide="true" ImageUrl="@Card.ImageUri"></MatCardMedia>
+        <div class="demo-mat-card-content">
+            <MatHeadline6 class="demo-mat-card-clean-margin">
+                @Card.Title
+            </MatHeadline6>
+        </div>
+        <MatBody2 class="demo-mat-card-content demo-mat-card-clean-margin">
+            @Card.Description
+        </MatBody2>
+        <MatSubtitle1>
+            <a href="@Card.SourceLink" style="margin-left:10px; color:gray">
+                <i class="fa fa-instagram" aria-hidden="true" style="font-size:24px;"></i>
+                @Card.AuthorName
+            </a>
+        </MatSubtitle1>
+    </MatCardContent>
+    <MatCardActions>
+        <MatCardActionIcons>
+            <MatIconButton Icon="@MatIconNames.Visibility" @onclick="ShowFullScreenImage"></MatIconButton>
+            <MatIconButton Icon="@MatIconNames.Vertical_align_bottom" @onclick="@(async ()=> await DownloadPictureAsync())" ></MatIconButton>
+            <MatIconButton Icon="@MatIconNames.Favorite"></MatIconButton>
+        </MatCardActionIcons>
+    </MatCardActions>
+</MatCard>
+
+<Syncfusion.Blazor.Popups.SfDialog Width="800px" Height="600px"  ShowCloseIcon="true" IsModal="true" @bind-Visible="@isVisible">
+    <Syncfusion.Blazor.Popups.DialogAnimationSettings Effect="Syncfusion.Blazor.Popups.DialogEffect.FadeZoom"/>
+    <Syncfusion.Blazor.Popups.DialogTemplates>
+        <Header>@Card.Title</Header>
+        <Content>
+            <img class="scaled-image" src="@Card.ImageUri"/>
+        </Content>
+    </Syncfusion.Blazor.Popups.DialogTemplates>
+</Syncfusion.Blazor.Popups.SfDialog>
+
+<style>
+    .demo-mat-card {
+        width: 400px;
+    }
+
+    .demo-mat-card-content {
+        padding: 1rem;
+    }
+
+    .demo-mat-card-clean-margin {
+        margin: 0px;
+    }
+
+    .scaled-image{
+        max-width: 100%;
+        max-height: 100%;
+        margin: auto;
+        display: block;
+    }
+
+    .e-dlg-overlay {
+        background-color: slategray;
+        opacity: 0.4;
+    }
+
+    .e-dialog .e-btn .e-btn-icon.e-icon-dlg-close {
+        font-size: 12px;
+        color: red;
+    }
+</style>
+
+@code{
+
+    [Parameter]
+    public FreeBelarus.Shared.Models.PostCard Card { get; set; }
+
+    private bool isVisible = false;
+
+    private void ShowFullScreenImage()
+    {
+        isVisible = true;
+    }
+
+    private async Task DownloadPictureAsync()
+    {
+        await JSRuntime.InvokeVoidAsync("downloadInspectionPicture", new object[] { Card.DownloadLink, Card.Title });
+    }
+}
