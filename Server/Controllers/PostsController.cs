@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using FreeBelarus.Server.Services;
+﻿using FreeBelarus.Server.Services;
 using FreeBelarus.Shared.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace FreeBelarus.Server.Controllers
 {
@@ -13,19 +10,17 @@ namespace FreeBelarus.Server.Controllers
     [ApiController]
     public class PostsController : ControllerBase
     {
-        private IWebCrawlerService _webCrawler;
+        private INewsFeedService _feedService;
 
-        public PostsController(IWebCrawlerService webCrawler)
+        public PostsController(INewsFeedService feedService)
         {
-            _webCrawler = webCrawler;
+            _feedService = feedService;
         }
 
         [HttpGet]
         public async Task<IEnumerable<Post>> GetAllPosts()
         {
-            var posts = new List<Post>();
-            var result = await _webCrawler.GetJsonAsync();
-            return posts;
+            return await _feedService.GetAllPostsAsync();
         }
     }
 }

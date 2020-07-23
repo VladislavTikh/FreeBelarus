@@ -1,7 +1,5 @@
 ﻿using FreeBelarus.Shared.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace FreeBelarus.Server.Services
@@ -9,16 +7,18 @@ namespace FreeBelarus.Server.Services
     public class NewsFeedService : INewsFeedService
     {
         private IWebCrawlerService _webCrawler;
-        private IDeserializer _deserialiser;
+        private IDeserializer<Post> _deserializer;
 
-        public NewsFeedService(IWebCrawlerService webCrawler, IDeserializer deserializer)
+        public NewsFeedService(IWebCrawlerService webCrawler, IDeserializer<Post> deserializer)
         {
             _webCrawler = webCrawler;
+            _deserializer = deserializer;
         }
 
-        public Task<IEnumerable<Post>> GetAllPosts()
+        public async Task<IEnumerable<Post>> GetAllPostsAsync()
         {
-            throw new NotImplementedException();
+            var content = await _webCrawler.GetJsonContentAsync();
+            return  await _deserializer.Deserialize(content);           
         }
     }
 }

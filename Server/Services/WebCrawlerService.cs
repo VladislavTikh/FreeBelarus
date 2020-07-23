@@ -1,8 +1,4 @@
-﻿using FreeBelarus.Shared.Models;
-using MatBlazor;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -23,21 +19,11 @@ namespace FreeBelarus.Server.Services
             };
         }
 
-        public Task<IEnumerable<Post>> GetAllPostsAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<string> GetJsonAsync()
+        public async Task<string> GetJsonContentAsync()
         {
             var uri = _client.BaseAddress + $"/{_extractorId}/json/latest?_apikey={_apiKey}";
-            var message  =  await _client.GetAsync(uri);
-            return await message.Content.ReadAsStringAsync();
-        }
-
-        public Task<Post> GetPostAsync(string uri)
-        {
-            throw new NotImplementedException();
+            var resposne = await _client.GetAsync(uri);
+            return await resposne.Content.ReadAsStringAsync();
         }
     }
 }
