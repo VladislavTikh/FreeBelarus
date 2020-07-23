@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FreeBelarus.Shared.Models
+﻿namespace FreeBelarus.Shared.Models
 {
-    public class PostCard
+    public class PostCard : IBusinessObject
     {
         public string Description { get; set; }
 

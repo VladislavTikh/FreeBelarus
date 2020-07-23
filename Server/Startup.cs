@@ -1,13 +1,12 @@
+using FreeBelarus.Server.Builders;
+using FreeBelarus.Server.Services;
+using FreeBelarus.Shared.Models;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Linq;
 using System;
-using FreeBelarus.Server.Services;
 
 namespace FreeBelarus.Server
 {
@@ -26,11 +25,16 @@ namespace FreeBelarus.Server
         {
             services.AddControllersWithViews();
             services.AddLogging();
-            services.AddTransient<IWebCrawlerService>(x =>
+            services.AddMemoryCache();
+            services.AddScoped<IWebCrawlerService>(x =>
             {
                 var apiKey = Environment.GetEnvironmentVariable("ImportIOApiKey", EnvironmentVariableTarget.User);
                 return new WebCrawlerService(apiKey);
             });
+            services.AddScoped<IBuilder, PostBuilder>();
+            //TODO Common Injector based on reflection
+            services.AddScoped<IDeserializer<Post>, JsonDeserializer<Post>>();
+            services.AddScoped<INewsFeedService, NewsFeedService>();
             services.AddRazorPages();
         }
 
