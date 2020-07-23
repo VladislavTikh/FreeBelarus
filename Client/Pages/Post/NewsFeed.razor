@@ -1,0 +1,33 @@
+﻿@page "/newsfeed"
+
+@inject HttpClient _client;
+
+<h3>News Feed</h3>
+
+@if(_posts != null)
+{
+<div class="control-section">
+    <div class="row">
+        @foreach (var post in _posts)
+        {
+            <div class="col-sm-auto">
+                <Post PostModel="post" />
+            </div>
+        }
+    </div>
+</div>
+}
+else
+{
+<p>Loading...</p>
+}
+
+@code {
+
+    private IEnumerable<FreeBelarus.Shared.Models.Post> _posts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _posts = await _client.GetFromJsonAsync<IEnumerable<FreeBelarus.Shared.Models.Post>>("api/posts");
+    }
+}

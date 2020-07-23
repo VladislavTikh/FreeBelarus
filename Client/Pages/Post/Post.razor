@@ -1,0 +1,30 @@
+﻿@page "/post"
+
+@using Syncfusion.Blazor.Cards
+@using Syncfusion.Blazor.Buttons
+
+<SfCard>
+    <CardImage Image="@PostModel.ImageUri" />
+    <CardHeader Title="@PostModel.Title" SubTitle="@PostModel.SourceName" />
+    <CardContent Content="@PostModel.Content" />
+    <CardFooter>
+        <CardFooterContent>
+            <SfButton CssClass="e-btn e-outline e-primary">Read More</SfButton>
+        </CardFooterContent>
+    </CardFooter>
+</SfCard>
+
+<style>
+    .e-dialog .e-btn .e-btn-icon.e-icon-dlg-close {
+        font-size: 12px;
+        color: red;
+    }
+</style>
+
+@code{
+
+    [Parameter]
+    public FreeBelarus.Shared.Models.Post PostModel { get; set; }
+
+}
+
