@@ -1,23 +1,30 @@
 ﻿@page "/post"
+@inject NavigationManager NavManager
 
 @using Syncfusion.Blazor.Cards
 @using Syncfusion.Blazor.Buttons
 
-<SfCard>
-    <CardImage Image="@PostModel.ImageUri" />
-    <CardHeader Title="@PostModel.Title" SubTitle="@PostModel.SourceName" />
-    <CardContent Content="@PostModel.Content" />
-    <CardFooter>
-        <CardFooterContent>
-            <SfButton CssClass="e-btn e-outline e-primary">Read More</SfButton>
-        </CardFooterContent>
-    </CardFooter>
-</SfCard>
+<div class="frame">
+    <SfCard>
+        <CardImage Image="@PostModel.ImageUri" />
+        <CardHeader Title="@PostModel.Title" SubTitle="@PostModel.SourceName" />
+        <CardContent Content="@PostModel.Content" />
+        <CardFooter>
+            <CardFooterContent>
+                <SfButton OnClick="@OpenOriginalSource" CssClass="e-btn e-outline e-primary">Read More</SfButton>
+            </CardFooterContent>
+        </CardFooter>
+    </SfCard>
+</div>
 
 <style>
     .e-dialog .e-btn .e-btn-icon.e-icon-dlg-close {
         font-size: 12px;
         color: red;
+    }
+    .frame{
+        width:450px;
+        margin-bottom: 10px;
     }
 </style>
 
@@ -25,6 +32,11 @@
 
     [Parameter]
     public FreeBelarus.Shared.Models.Post PostModel { get; set; }
+
+    private void OpenOriginalSource()
+    {
+        NavManager.NavigateTo(PostModel.SourceLink);
+    }
 
 }
 
