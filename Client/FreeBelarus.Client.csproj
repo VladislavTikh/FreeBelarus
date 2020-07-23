@@ -51,10 +51,17 @@
     <ItemGroup>
       <Watch Remove="Pages\PostCardFS.razor" />
       <Watch Remove="Pages\PostCardFullScreen.razor" />
+      <Watch Remove="Pages\Post\NewsFeed.razor" />
+      <Watch Remove="Pages\Post\Post.razor" />
     </ItemGroup>
 
     <ItemGroup>
       <ApplicationDefinition Include="Pages\PostCardFS.razor" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="Pages\Post\NewsFeed.razor" />
+      <None Include="Pages\Post\Post.razor" />
     </ItemGroup>
 
 </Project>
