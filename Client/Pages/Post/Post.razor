@@ -6,7 +6,9 @@
 
 <div class="frame">
     <SfCard>
-        <CardImage Image="@PostModel.ImageUri" />
+        <div class="image-box">
+            <img class="scaled-image" src="@PostModel.ImageUri" />
+        </div>
         <CardHeader Title="@PostModel.Title" SubTitle="@PostModel.SourceName" />
         <CardContent Content="@PostModel.Content" />
         <CardFooter>
@@ -26,6 +28,19 @@
         width:450px;
         margin-bottom: 10px;
     }
+    .image-box{
+        margin: 10px;
+        float:left;
+        width: 50%;
+    }
+    .scaled-image {
+        max-width: 100%;
+        max-height: 100%;
+        display: block;
+        border-width: 1px;
+        border-style: none outset outset none;
+        border-color: lightgray;
+    }
 </style>
 
 @code{
@@ -35,7 +50,7 @@
 
     private void OpenOriginalSource()
     {
-        NavManager.NavigateTo(PostModel.SourceLink);
+        NavManager.NavigateTo(PostModel.SourceLink, true);
     }
 
 }
