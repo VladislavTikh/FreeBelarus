@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Pages\Authorization\Login.razor" />
+    <Content Remove="Pages\Authorization\LoginDisplay.razor" />
+    <Content Remove="Pages\Authorization\Logout.razor" />
+    <Content Remove="Pages\Authorization\Register.razor" />
     <Content Remove="Pages\PostCardFS.razor" />
     <Content Remove="wwwroot\assets\images\crowd.jpg" />
     <Content Remove="wwwroot\assets\images\freedom_belarus.jpg" />
@@ -22,8 +26,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Blazored.LocalStorage" Version="3.0.0" />
     <PackageReference Include="Blazored.Modal" Version="5.0.1" />
     <PackageReference Include="MatBlazor" Version="2.6.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="3.1.6" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="3.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Build" Version="3.2.0" PrivateAssets="all" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="3.2.0" PrivateAssets="all" />
@@ -39,16 +45,16 @@
     <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\assets\docs\" />
-  </ItemGroup>
-
     <ItemGroup>
     <!-- extends watching group to include *.razor files -->
     <Watch Include="**\*.razor" />
   </ItemGroup>
 
     <ItemGroup>
+      <Watch Remove="Pages\Authorization\Login.razor" />
+      <Watch Remove="Pages\Authorization\LoginDisplay.razor" />
+      <Watch Remove="Pages\Authorization\Logout.razor" />
+      <Watch Remove="Pages\Authorization\Register.razor" />
       <Watch Remove="Pages\PostCardFS.razor" />
       <Watch Remove="Pages\PostCardFullScreen.razor" />
       <Watch Remove="Pages\Post\NewsFeed.razor" />
@@ -60,6 +66,10 @@
     </ItemGroup>
 
     <ItemGroup>
+      <None Include="Pages\Authorization\Login.razor" />
+      <None Include="Shared\LoginDisplay.razor" />
+      <None Include="Pages\Authorization\Logout.razor" />
+      <None Include="Pages\Authorization\Register.razor" />
       <None Include="Pages\Post\NewsFeed.razor" />
       <None Include="Pages\Post\Post.razor" />
     </ItemGroup>

@@ -15,7 +15,6 @@ namespace FreeBelarus.Server.Builders
         {
             var posts = new List<Post>();
             var dataSection = jsonObject["result"]["extractorData"]["data"];
-            var text = dataSection.ToString();
             foreach(var node in dataSection[1]["group"].Children())
             {
                 posts.Add(new Post

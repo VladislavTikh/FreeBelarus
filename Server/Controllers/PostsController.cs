@@ -1,11 +1,13 @@
 ﻿using FreeBelarus.Server.Services;
 using FreeBelarus.Shared.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace FreeBelarus.Server.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PostsController : ControllerBase
