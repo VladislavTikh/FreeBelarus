@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FreeBelarus.Server.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "User")]
     [Route("api/[controller]")]
     [ApiController]
     public class PostsController : ControllerBase

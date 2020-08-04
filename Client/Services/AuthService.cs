@@ -41,13 +41,12 @@ namespace FreeBelarus.Client.Services
             var response = await _httpClient.PostAsync("api/login", new StringContent(loginAsJson, Encoding.UTF8, "application/json"));
             var content = await response.Content.ReadAsStringAsync();
             var loginResult = JsonSerializer.Deserialize<LoginResult>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            if (!response.IsSuccessStatusCode)
+            if (loginResult.Successful)
             {
-                return loginResult;
+                await _localStorage.SetItemAsync("authToken", loginResult.Token);
+                ((ApiAuthenticationStateProvider)_authenticationStateProvider).MarkUserAsAuthenticated(loginResult.Token);
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", loginResult.Token);
             }
-            await _localStorage.SetItemAsync("authToken", loginResult.Token);
-            ((ApiAuthenticationStateProvider)_authenticationStateProvider).MarkUserAsAuthenticated(loginModel.Email);
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", loginResult.Token);
             return loginResult;
         }
 
