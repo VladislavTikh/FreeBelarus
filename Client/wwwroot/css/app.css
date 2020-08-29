@@ -8,9 +8,12 @@ a, .btn-link {
     color: red;
 }
 
+.btn-primary:hover {
+    background-color: rgba(248, 32, 7, 0.91);
+    border-color: #EA1712;
+}
 .btn-primary {
-    color: #CCF52D2D;
-    background-color: #B2F4120B;
+    background-color: rgba(248, 32, 7, 0.91);
     border-color: #EA1712;
 }
 
